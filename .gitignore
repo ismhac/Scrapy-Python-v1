@@ -2,3 +2,4 @@ venv
 src/export
 src/.env
 test.html
+cli

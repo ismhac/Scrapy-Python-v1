@@ -20,6 +20,11 @@ class Job(scrapy.Item):
     job_link = scrapy.Field()
     job_skills = scrapy.Field() 
     job_link_id = scrapy.Field()
+    job_description = scrapy.Field()
+    job_location = scrapy.Field()
+
+
+
 class crawling(scrapy.Spider):
     name = "crawl_company"
     domain = "https://topdev.vn"
@@ -65,20 +70,22 @@ class crawling(scrapy.Spider):
         # Extract the script tag data
         script_data = response.xpath('//script[@type="application/ld+json"][2]/text()').get()
         # Parse the JSON data
-        # json_data = json.loads(script_data)
-        # json_data_2 = json.dumps(json_data)
-        # skills_string = json.loads(json_data_2).get('skills')
-        # skills = skills_string.split(', ') if skills_string else []
-
         json_data = json.loads(script_data)
         skills_string = json_data.get('skills')
         skills = skills_string.split(', ') if skills_string else []
+
+        # print(response.url)
+
+        description = response.xpath('//section[@id="detailJobPage"]/div[@id="card-job-hahaha"]/div[@class="container flex flex-wrap items-start gap-6 px-0 md:flex-nowrap md:px-4"]/section[@class="flex w-full flex-col gap-4 md:w-[67.62%]"]/section[@class="content"]/section[@id="cardContentDetailJob"]/div[@id="JobDescription"]/*').get()
+
+        # print(description)
 
 
         items['job_link'] = link
         items['job_name'] = name
         items['job_skills'] = skills
-        items['job_link_id'] = link_id
+        # items['job_link_id'] = link_id
+        items['job_description'] = description
 
         company = response.meta['company']
         company['jobs'].append(items)
