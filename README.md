@@ -1,3 +1,7 @@
+### Hi I'm ismhac ! 
+### This project uses Scrapy and MongoDb to collect some data for learning purposes. 
+### I collected data from <a href="https://topdev.vn/">website</a>
+### You can also try it, let's get started !
 
 ---
 ### create virtual environment:
